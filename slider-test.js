@@ -219,7 +219,7 @@ submit.addEventListener("click", function () {
 
     for ( let y = 0; y < slide; y++) {
         let currentQuestionPoints = parseInt(document.querySelector("input[name='" + y + "']").value)
-console.log(currentQuestionPoints)
+
         if (currentQuestionPoints) {
             totalPoints += currentQuestionPoints
         }
@@ -257,7 +257,7 @@ console.log(currentQuestionPoints)
         result.innerHTML = message
 
         const image = document.createElement("img")
-        image.src = "/young_logo.png"
+        image.src = "./young_logo.png"
 
         const homepageButton = document.createElement("a")
         homepageButton.innerHTML = "Back to home page"
