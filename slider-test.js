@@ -19,6 +19,13 @@ for (let i = 0; i < questions.length; i++) {
 
     slide.style.top = i * 600 + "px"
 
+    // Create question number div
+    const number = document.createElement("div")
+    number.classList.add("question-number")
+    number.innerHTML = i + 1 + "<svg height=\"10\" width=\"11\"><path d=\"M7.586 5L4.293 1.707 5.707.293 10.414 5 5.707 9.707 4.293 8.293z\"></path><path d=\"M8 4v2H0V4z\"></path></svg>"
+
+    slide.appendChild(number);
+
     // Create slide text
     const question = document.createElement("h4")
     question.innerHTML = questions[i]
@@ -35,12 +42,32 @@ for (let i = 0; i < questions.length; i++) {
 
     current.innerHTML = i + 1 + " of " + questions.length
 
+    const mobileDescr1 = document.createElement("div")
+    mobileDescr1.classList.add("mobile-description-1")
+    mobileDescr1.innerHTML = "1 <svg height=\"8\" width=\"7\" aria-hidden=\"true\" fill=\"#4FB0AE\" class=\"ArrowRight-sc-__sc-o8lgvt-1 hwboHX\"><path d=\"M5 3.5v1.001H-.002v-1z\"></path><path d=\"M4.998 4L2.495 1.477 3.2.782 6.416 4 3.199 7.252l-.704-.709z\"></path></svg> Strongly Disagree"
+
+    const mobileDescr2 = document.createElement("div")
+    mobileDescr2.classList.add("mobile-description-2")
+    mobileDescr2.innerHTML = "3 <svg height=\"8\" width=\"7\" aria-hidden=\"true\" fill=\"#4FB0AE\" class=\"ArrowRight-sc-__sc-o8lgvt-1 hwboHX\"><path d=\"M5 3.5v1.001H-.002v-1z\"></path><path d=\"M4.998 4L2.495 1.477 3.2.782 6.416 4 3.199 7.252l-.704-.709z\"></path></svg> Neither Agree/Disagree"
+
+    const mobileDescr3 = document.createElement("div")
+    mobileDescr3.classList.add("mobile-description-3")
+    mobileDescr3.innerHTML = "5 <svg height=\"8\" width=\"7\" aria-hidden=\"true\" fill=\"#4FB0AE\" class=\"ArrowRight-sc-__sc-o8lgvt-1 hwboHX\"><path d=\"M5 3.5v1.001H-.002v-1z\"></path><path d=\"M4.998 4L2.495 1.477 3.2.782 6.416 4 3.199 7.252l-.704-.709z\"></path></svg> Strongly Agree"
+
+    const mobileDescription = document.createElement("div")
+    mobileDescription.classList.add("mobile-description")
+
+    mobileDescription.appendChild(mobileDescr1)
+    mobileDescription.appendChild(mobileDescr2)
+    mobileDescription.appendChild(mobileDescr3)
+
+    slide.appendChild(mobileDescription);
+
     // Create options container and add class name
     const options = document.createElement("div")
     options.classList.add("options")
 
     slide.appendChild(options);
-
 
     // Create options and add them to option container
     for (let j = 1; j <= 5; j++) {
@@ -65,12 +92,15 @@ for (let i = 0; i < questions.length; i++) {
     description.classList.add("description")
 
     const descr1 = document.createElement("div")
+    descr1.classList.add("description-1")
     descr1.innerHTML = "Strongly Disagree"
 
     const descr2 = document.createElement("div")
+    descr2.classList.add("description-2")
     descr2.innerHTML = "Neither Agree/Disagree"
 
     const descr3 = document.createElement("div")
+    descr3.classList.add("description-3")
     descr3.innerHTML = "Strongly Agree"
 
     description.appendChild(descr1)
@@ -244,9 +274,12 @@ submit.addEventListener("click", function () {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    setTimeout(doSomething, randNumb(300,800));
+    setTimeout(showResults, randNumb(300,800));
 
-    function doSomething() {
+    function showResults() {
+
+        const scoreContainer = document.createElement("div")
+        scoreContainer.classList.add("score-container")
 
         const score = document.createElement("div")
         score.classList.add("score")
@@ -259,16 +292,30 @@ submit.addEventListener("click", function () {
         const image = document.createElement("img")
         image.src = "./young_logo.png"
 
-        const homepageButton = document.createElement("a")
+        const homepageButtonAnchor = document.createElement("a")
+        homepageButtonAnchor.classList.add("home-button")
+        homepageButtonAnchor.href = "/"
+
+        const homepageContainer = document.createElement("div")
+        homepageContainer.classList.add("homepage-container")
+
+        const homepageButton = document.createElement("button")
         homepageButton.innerHTML = "Back to home page"
-        homepageButton.classList.add("home-button")
-        homepageButton.href = "/"
+
+        homepageButtonAnchor.appendChild(homepageButton)
+
+        const pressEnter = document.createElement("div")
+        pressEnter.classList.add("press")
+        pressEnter.innerHTML = "press <strong>Enter ↵</strong>"
 
         container.innerHTML = ""
-        container.appendChild(image);
-        container.appendChild(score);
-        container.appendChild(result);
-        container.appendChild(homepageButton);
+        scoreContainer.appendChild(image);
+        scoreContainer.appendChild(score);
+        scoreContainer.appendChild(result);
+        homepageContainer.appendChild(homepageButtonAnchor);
+        homepageContainer.appendChild(pressEnter);
+        scoreContainer.appendChild(homepageContainer);
+        container.appendChild(scoreContainer);
 
         document.addEventListener("keypress" , function (e) {
             if ( e.key === "Enter" ) {
